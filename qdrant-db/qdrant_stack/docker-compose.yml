@@ -1,0 +1,38 @@
+services:
+  qdrant-database:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-database
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_db_server/data:/qdrant/storage
+      - ./qdrant_db_server/config:/qdrant/config
+    restart: always
+    networks:
+      - mcp-docker-network
+
+  qdrant-mcp-server:
+    build:
+      context: ./qdrant_mcp_server
+      dockerfile: Dockerfile
+    container_name: qdrant-mcp-server
+    ports:
+      - "8000:8000" # Expose port for SSE transport
+    environment:
+      - QDRANT_URL=http://qdrant-database:6333
+      - COLLECTION_NAME=llm_documents
+      - EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+      - LOG_LEVEL=DEBUG
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - qdrant-database
+    networks:
+      - mcp-docker-network
+    restart: always
+    # No healthcheck for now, since the MCP server works with SSE endpoints
+    # rather than traditional HTTP endpoints
+
+networks:
+  mcp-docker-network:
+    external: true  # Reference the external unified network

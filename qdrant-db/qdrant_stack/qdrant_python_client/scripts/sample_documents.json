@@ -1,0 +1,39 @@
+{
+  "documents": [
+    {
+      "id": "doc1",
+      "text": "Qdrant is a vector similarity search engine. It provides a production-ready service with a convenient API to store, search, and manage points - vectors with an additional payload. Qdrant is tailored to extended filtering support. It makes it useful for all sorts of neural network or semantic-based matching, faceted search, and other applications.",
+      "source": "Qdrant Documentation",
+      "category": "database",
+      "date": "2023-01-01"
+    },
+    {
+      "id": "doc2",
+      "text": "Vector embeddings are numerical representations of objects like text, images, or audio. Vectors capture semantic meaning, allowing for similarity comparison. For example, the embeddings for 'dog' and 'puppy' would be closer to each other than to 'airplane'. This enables powerful semantic search capabilities beyond traditional keyword matching.",
+      "source": "AI Concepts",
+      "category": "embeddings",
+      "date": "2023-02-15"
+    },
+    {
+      "id": "doc3",
+      "text": "LLMs (Large Language Models) like GPT-4, Claude, and Llama2 use a technique called RAG (Retrieval Augmented Generation) to enhance their responses with relevant context. RAG works by retrieving information from a knowledge base using vector similarity search, then incorporating this information into the generation process to produce more accurate and informative responses.",
+      "source": "AI Research",
+      "category": "llm",
+      "date": "2023-05-10"
+    },
+    {
+      "id": "doc4",
+      "text": "Hybrid search combines dense vector search with sparse vector methods to achieve better retrieval performance. Dense vectors capture semantic meaning, while sparse vectors excel at keyword matching. By combining these approaches, hybrid search can deliver more relevant results for a wider variety of queries, especially for specialized domains with specific terminology.",
+      "source": "Search Technologies",
+      "category": "search",
+      "date": "2023-07-22"
+    },
+    {
+      "id": "doc5",
+      "text": "The HNSW (Hierarchical Navigable Small World) algorithm is a graph-based method for approximate nearest neighbor search. It builds a multi-layer structure where each layer is a navigable small world graph. The search starts at the top layer and gradually descends to lower, more detailed layers. This approach provides a good balance between search speed and recall, making it suitable for production vector search engines.",
+      "source": "Algorithms",
+      "category": "algorithms",
+      "date": "2023-03-18"
+    }
+  ]
+}

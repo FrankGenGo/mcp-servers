@@ -1,0 +1,10 @@
+# Top-level docker-compose.yml for unified MCP network
+# This file defines the main network that all MCP services will connect to
+
+# No services defined here - this is purely for network creation
+# Each service will have its own docker-compose.yml that references this network
+
+networks:
+  mcp-docker-network:
+    name: mcp-docker-network
+    driver: bridge
