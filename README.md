@@ -1,55 +1,141 @@
-# MCP Servers Monorepo
+# MCP Servers Multi-Agent AI Infrastructure
 
-This repository contains a collection of services and tools for working with the Model Context Protocol (MCP).
+A comprehensive infrastructure for enabling multi-agent AI swarms powered by specialized Model Context Protocol (MCP) servers. This monorepo contains the full stack of components needed to orchestrate, connect, and empower intelligent agents with various specialized capabilities.
 
-## Components
+## 🌟 Overview
+
+This project enables the creation of a multi-agent AI ecosystem where specialized agents can collaborate, share context, and leverage different capabilities through the Model Context Protocol (MCP). By providing a standardized communication layer, agents can seamlessly access vector databases, specialized tools, and various data sources through a unified protocol.
+
+The infrastructure supports:
+- Semantic search and retrieval through vector embeddings
+- Multi-agent collaboration and communication
+- Modular, microservice-based architecture
+- Visual inspection and debugging of agent interactions
+- Extensible tool frameworks for AI capabilities
+
+## 🧩 Core Components
 
 ### Inspector
-A dashboard for inspecting and interacting with MCP servers. Built with React/Vite frontend and Express backend.
+An interactive dashboard for monitoring, testing, and debugging MCP servers. Built with React/Vite frontend and Express backend.
 
 - Located in: `/inspector`
 - Features:
-  - Connect to MCP servers
-  - Explore available tools
-  - Test prompts
-  - Query vector stores
+  - Real-time connection to any MCP server
+  - Interactive exploration of available tools
+  - Test prompts and tool invocations
+  - Monitor agent interactions
+  - Debug server responses and behavior
 
-### Qdrant-DB
-Vector database implementation using Qdrant with MCP server integration.
+### Qdrant-DB with MCP Integration
+Vector database implementation using Qdrant with full MCP server integration, enabling semantic search capabilities for AI agents.
 
 - Located in: `/qdrant-db`
 - Features:
-  - MCP server for Qdrant
-  - Python client for document operations
-  - FastEmbed integration for vector embeddings
+  - Vector embeddings for semantic similarity search
+  - Document storage with metadata
+  - Python client for advanced operations
+  - FastEmbed integration for efficient embeddings
+  - Seamless connection to the MCP ecosystem
 
 ### MCP Docker Network
-Docker network configuration for connecting MCP services.
+Infrastructure for orchestrating and connecting MCP services in a unified network.
 
 - Located in: `/mcp-docker-network`
+- Features:
+  - Isolated network for secure service communication
+  - Management tools for container orchestration
+  - Service discovery within the swarm
+  - Simplified deployment of complex agent systems
 
-## Getting Started
+## 🚀 Getting Started
 
-1. Ensure Docker and Docker Compose are installed
-2. Start the services:
+### Prerequisites
+- Docker and Docker Compose
+- Node.js (for local development)
+- Python 3.9+ (for running clients and scripts)
+
+### Quick Start
+
+1. Clone the repository:
    ```bash
-   cd inspector
+   git clone https://github.com/FrankGenGo/mcp-servers.git
+   cd mcp-servers
+   ```
+
+2. Set up the shared Docker network:
+   ```bash
+   cd mcp-docker-network
+   ./scripts/manage-network.sh create
+   ```
+
+3. Start the Qdrant vector database and MCP server:
+   ```bash
+   cd ../qdrant-db/qdrant_stack
    docker-compose up -d
    ```
+
+4. Start the Inspector dashboard:
    ```bash
-   cd qdrant-db/qdrant_stack
-   docker-compose up -d
+   cd ../../inspector
+   docker build -t mcp-inspector .
+   docker run -d --name mcp-inspector --network mcp-docker-network -p 5173:5173 -p 3000:3000 mcp-inspector
    ```
 
-3. Access the Inspector dashboard at http://localhost:5173
+5. Access the Inspector dashboard at http://localhost:5173
 
-## Architecture
+## 🏗️ Architecture
 
-The services communicate over a shared Docker network:
+This project implements a distributed microservices architecture centered around the Model Context Protocol:
 
-- Inspector dashboard (port 5173) → Express proxy (port 3000) → Qdrant MCP server (port 8000)
-- Qdrant MCP server → Qdrant database (port 6333)
+```
+┌───────────────┐     ┌───────────────┐     ┌───────────────┐
+│   AI Agent    │     │  AI Agent     │     │  AI Agent     │
+│  Capabilities │     │  Reasoning    │     │  Planning     │
+└───────┬───────┘     └───────┬───────┘     └───────┬───────┘
+        │                     │                     │
+        │                     ▼                     │
+        │             ┌───────────────┐             │
+        └────────────►  MCP Network   ◄─────────────┘
+                     │ Communication  │
+                     └───────┬───────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+    ┌─────────▼──────────┐        ┌─────────▼──────────┐
+    │   Qdrant MCP       │        │  Inspector         │
+    │   Vector Search    │        │  Monitoring        │
+    └────────────────────┘        └────────────────────┘
+```
 
-## Development
+Components communicate over a shared Docker network, with:
+- Inspector dashboard (port 5173) → Express proxy (port 3000) → MCP servers
+- Qdrant MCP server (port 8000) → Qdrant database (port 6333)
+- All services connected via the `mcp-docker-network`
 
-Each component can be developed independently. See the README in each subdirectory for specific development instructions.
+## 🧠 Use Cases
+
+- **Multi-Agent Systems**: Build collaborative agent systems that combine different AI capabilities
+- **Knowledge Management**: Create semantic search systems with intuitive AI interfaces
+- **Tool Integration**: Extend AI capabilities with specialized tools and data sources
+- **Development & Debugging**: Inspect and test MCP servers during development
+
+## 🛠️ Development
+
+Each component can be developed independently:
+
+- **Inspector**: React/TypeScript frontend with Express backend
+- **Qdrant MCP Server**: Python FastMCP implementation
+- **Network Management**: Bash scripts and Docker Compose configurations
+
+See the README in each subdirectory for specific development instructions.
+
+## 📚 Further Resources
+
+- [Model Context Protocol Specification](https://modelcontextprotocol.io)
+- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+- [Qdrant Documentation](https://qdrant.tech/documentation/)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
