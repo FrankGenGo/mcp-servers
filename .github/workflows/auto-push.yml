@@ -1,0 +1,39 @@
+name: Auto Push to GitHub
+
+on:
+  push:
+    branches:
+      - main
+  
+  # Optional: Schedule regular pushes
+  schedule:
+    - cron: '0 0 * * *'  # Runs at midnight every day
+  
+  # Optional: Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  auto-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+      
+      - name: Push to GitHub
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Changes detected, pushing to GitHub"
+            git push origin main
+          else
+            echo "No changes to push"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
